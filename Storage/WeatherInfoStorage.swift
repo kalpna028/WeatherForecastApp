@@ -9,7 +9,6 @@ import Foundation
 
 protocol WeatherInfoStorageManager {
     func cacheWeatherInfo(weather: Weather)
-    func getAllStoredWeatherInfo()
     func getWeatherInfo(forCity city: String) -> Weather?
 }
 
@@ -30,10 +29,6 @@ class WeatherInfoStorage : WeatherInfoStorageManager {
         if let encoded = try? encoder.encode(newWeather) {
             userDefaults.set(encoded, forKey: newWeather.location?.name ?? "")
         }
-    }
-    
-    func getAllStoredWeatherInfo() {
-        
     }
     
     func getWeatherInfo(forCity city: String) -> Weather? {
