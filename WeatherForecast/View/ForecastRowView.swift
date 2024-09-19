@@ -16,8 +16,7 @@ struct ForecastRowView: View {
             Spacer()
             Text("\(day.day?.maxtemp_c ?? 0, specifier: "%.1f") °C / \(day.day?.mintemp_c ?? 0, specifier: "%.1f") °C")
         }
-        .background(Color.clear)
-        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
     }
 }
 
