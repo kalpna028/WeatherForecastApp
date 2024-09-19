@@ -16,6 +16,7 @@ struct ForecastView: View {
                 ForecastRowView(day: day)
             }
             .background(Gradient(colors: [.teal, .cyan, .green]).opacity(0.6))
+            .scrollContentBackground(.hidden)
             
         }
         
