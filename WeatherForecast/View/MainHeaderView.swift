@@ -16,7 +16,7 @@ struct MainHeaderView: View {
             TextField("Enter city", text: $city)
                 .textFieldStyle(.roundedBorder)
             Button("Search") {
-                self.viewModel.fetchWeather(forCity: city)
+                self.viewModel.checkWeatherCache(forCity: city)
             }
         }
         .padding(.horizontal, 20)
