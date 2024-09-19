@@ -13,18 +13,21 @@ struct TodayWeatherView: View {
     var body: some View {
         VStack(spacing: 10) {
             Spacer()
-            if let currentModel = self.viewModel.weather?.current {
-                Text("\(currentModel.condition?.text ?? "")").fontWeight(.medium)
-                Text("\(currentModel.temp_c ?? 0, specifier: "%.1f") °C").fontWeight(.bold)
-                Text("\(WeatherForecast.feelsLikeText)  \(currentModel.feelslike_c ?? 0, specifier: "%.1f") °C").fontWeight(.medium)
-                Text("\(WeatherForecast.humidityText)  \(currentModel.humidity ?? 0)").fontWeight(.medium)
-                Text("\(WeatherForecast.windSpeedText)  \(currentModel.wind_kph ?? 0, specifier: "%.1f")").fontWeight(.medium)
+            if let currentModel = self.viewModel.weather?.current,
+               let locationModel = self.viewModel.weather?.location {
+                Text("\(locationModel.name ?? "")").font(.largeTitle).fontWeight(.bold)
+                Text("\(currentModel.condition?.text ?? "")").font(.subheadline).fontWeight(.medium)
+                Text("\(currentModel.temp_c ?? 0, specifier: "%.1f") °C").font(.title).fontWeight(.bold)
+                Text("\(WeatherForecast.feelsLikeText)  \(currentModel.feelslike_c ?? 0, specifier: "%.1f") °C").font(.headline).fontWeight(.medium)
+                Text("\(WeatherForecast.humidityText)  \(currentModel.humidity ?? 0)").font(.headline).fontWeight(.medium)
+                Text("\(WeatherForecast.windSpeedText)  \(currentModel.wind_kph ?? 0, specifier: "%.1f")").font(.headline).fontWeight(.medium)
                 
                 Spacer()
                 
                 NavigationLink(WeatherForecast.forecastLinkTitle) {
                     ForecastView(viewModel: viewModel)
                 }
+                Spacer()
             } else if let error = self.viewModel.error {
                 ErrorView(viewModel: viewModel)
             }
