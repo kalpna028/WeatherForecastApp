@@ -53,6 +53,10 @@ WeatherForecast provides the current weather forecast for any city and includes 
 
 
 
+#Screenshots
+
+1. ![Simulator Screenshot - iPhone 15 Pro Max - 2024-09-19 at 15 23 13](https://github.com/user-attachments/assets/e871fa63-eeaa-4c15-8d22-30cf46deea51)
+2. ![Simulator Screenshot - iPhone 15 Pro Max - 2024-09-19 at 15 40 47](https://github.com/user-attachments/assets/d4e28b5b-b2b3-47c4-8826-9a1dc84209a6)
 
 
 
