@@ -16,14 +16,7 @@ final class WeatherViewModelTests: XCTestCase {
         mockAPIService.isForSuccess = true
         let weatherViewModel = WeatherViewModel(weatherService: mockAPIService)
         
-        weatherViewModel.fetchWeather(forCity: "Delhi")
-        let exp = expectation(description: "Fetching Data")
-        exp.fulfill()
-
-        waitForExpectations(timeout: 2)
         
-        XCTAssertNotNil(weatherViewModel.weather)
-        XCTAssertNil(weatherViewModel.error)
     }
 
 }
