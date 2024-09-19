@@ -22,4 +22,7 @@ struct WeatherForecast {
     static let windSpeedText = "Wind Speed is"
     static let feelsLikeText = "Feels Like"
 
+    static let cacheExpiryTime = 6
+
+
 }
