@@ -12,7 +12,7 @@ import Alamofire
 let location = Location(name: "", region: "", country: "", lat: 1.0, lon: 1.0, tz_id: "", localtime_epoch: 1, localtime: "")
 let current = Current(temp_c: 2.0, condition: nil, wind_mph: 2.0, wind_kph: 2.0, humidity: 23, cloud: 1, feelslike_c: 12.2)
 let forecast = Forecast(forecastDay: [])
-let weather = Weather(location: location, current: current, forecast: forecast)
+var weather = Weather(location: location, current: current, forecast: forecast, timestamp: Date())
 
 
 class MockResponse {
@@ -43,16 +43,43 @@ class MockSession: Session {
 class MockWeatherAPIService: WeatherAPIService {
     
     var isForSuccess = true
+    var isFetchWeatherCalled = false
     override func fetchWeather(forCity city: String, completion: @escaping (Weather?, CustomError?) -> Void) {
+        isFetchWeatherCalled = true
+
         if isForSuccess {
-            let location = Location(name: "", region: "", country: "", lat: 1.0, lon: 1.0, tz_id: "", localtime_epoch: 1, localtime: "")
-            let current = Current(temp_c: 2.0, condition: nil, wind_mph: 2.0, wind_kph: 2.0, humidity: 23, cloud: 1, feelslike_c: 12.2)
-            let forecast = Forecast(forecastDay: [])
-            let weather = Weather(location: location, current: current, forecast: forecast)
             completion(weather, nil)
         } else {
             completion(nil, CustomError(errorCode: 101, errorMsg: "Something Went Wrong"))
         }
     }
+    
+}
+
+class MockWeatherInfoStorageManager : WeatherInfoStorageManager {
+   
+    var isCacheAvailable = true
+    var isForExpiredCache = false
+    
+    func cacheWeatherInfo(weather: Weather) {
+        
+    }
+    
+    
+    
+    func getWeatherInfo(forCity city: String) -> Weather? {
+        
+        if isForExpiredCache {
+            let earlyDate = Calendar.current.date(
+              byAdding: .hour,
+              value: -7,
+              to: Date())
+            weather.timestamp = earlyDate
+        }
+        return isCacheAvailable ? weather : nil
+    }
+    
+    
+    
     
 }
