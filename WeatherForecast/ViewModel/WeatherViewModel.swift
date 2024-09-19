@@ -22,9 +22,7 @@ class WeatherViewModel: ObservableObject {
     func checkWeatherCache(forCity city: String) {
         let cachedWeather = weatherInfoStorageManager.getWeatherInfo(forCity: city)
         if let weather = cachedWeather, let savedDate = weather.timestamp {
-            let interval = Calendar.current.dateComponents([.hour], from: savedDate, to: Date())
-            
-            if interval.hour ?? 0 >= 6 {
+            if shouldMakeAPICall(savedDate: savedDate) {
                 makeAPICall(forCity: city)
             } else {
                 //no api call needed
@@ -37,6 +35,11 @@ class WeatherViewModel: ObservableObject {
             //API call
             makeAPICall(forCity: city)
         }
+    }
+    
+    func shouldMakeAPICall(savedDate: Date) -> Bool {
+        let interval = Calendar.current.dateComponents([.hour], from: savedDate, to: Date())
+        return  interval.hour ?? 0 >= WeatherForecast.cacheExpiryTime
     }
     
     
